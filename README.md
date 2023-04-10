@@ -1,2 +1,2 @@
 # rabbitcontrol
-RabbitMQ Control - приложения для управления и мониторинга популярного брокера сообщений
+RabbitMQ Control - applications to manage and monitor the popular message broker

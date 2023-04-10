@@ -1,0 +1,107 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:RabbitControl.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:l="clr-namespace:RabbitControl.Resources.Lang"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="RabbitControl.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Name="Win"
+        Icon="/Assets/rabbitmq.ico"
+        Title="{x:Static l:Strings.MainWindow_Title}"
+        ExtendClientAreaToDecorationsHint="True">
+    <Design.DataContext>
+        <vm:MainWindowViewModel />
+    </Design.DataContext>
+
+    <Grid RowDefinitions="Auto,Auto,*">
+        <Grid ColumnDefinitions="Auto,*,Auto">
+            <StackPanel Orientation="Horizontal">
+                <Menu>
+                    <MenuItem>
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Assets/rabbitmq.ico" Width="16" Height="16" />
+                                <TextBlock Text="{Binding #Win.Title}"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center"
+                                           Margin="10 4" />
+                            </StackPanel>
+                        </MenuItem.Header>
+                        <MenuItem Header="{x:Static l:Strings.Connections}">
+                            <MenuItem Header="{x:Static l:Strings.CreateConnectionsGroup}">
+                                <MenuItem.Icon>
+                                    <Image Classes="toolImage">
+                                        <Image.Source>
+                                            <SvgImage Source="/Assets/Commands/add_folder.svg"/>
+                                        </Image.Source>
+                                    </Image>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                            <MenuItem Header="{x:Static l:Strings.CreateConnection}">
+                                <MenuItem.Icon>
+                                    <Image Classes="toolImage">
+                                        <Image.Source>
+                                            <SvgImage Source="/Assets/Commands/server_add.svg"/>
+                                        </Image.Source>
+                                    </Image>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </MenuItem>
+                        <MenuItem Header="{x:Static l:Strings.Queues}"></MenuItem>
+                        <MenuItem Header="{x:Static l:Strings.Messages}"></MenuItem>
+                        <Separator />
+                        <MenuItem Header="{x:Static l:Strings.Preferences}" />
+                        <Separator />
+                        <MenuItem Header="{x:Static l:Strings.Exit}" />
+                    </MenuItem>
+                </Menu>
+            </StackPanel>
+        </Grid>
+        <Grid ColumnDefinitions="300,*" Grid.Row="2">
+            <TabControl HorizontalAlignment="Stretch">
+                <TabItem Header="{x:Static l:Strings.Connections}">
+                    <Grid Margin="0 0 5 0" RowDefinitions="Auto,*,Auto">
+                        <StackPanel Orientation="Horizontal">
+                            <Button ToolTip.Tip="{x:Static l:Strings.Refresh}" Classes="toolButton">
+                                <Image Classes="toolImage">
+                                    <Image.Source>
+                                        <SvgImage Source="/Assets/Commands/refresh.svg"/>
+                                    </Image.Source>
+                                </Image>
+                            </Button>
+                            <Button ToolTip.Tip="{x:Static l:Strings.CreateConnectionsGroup}" Classes="toolButton">
+                                <Image Classes="toolImage">
+                                    <Image.Source>
+                                        <SvgImage Source="/Assets/Commands/add_folder.svg"/>
+                                    </Image.Source>
+                                </Image>
+                            </Button>
+                            <Button ToolTip.Tip="{x:Static l:Strings.CreateConnection}" Classes="toolButton">
+                                <Image Classes="toolImage">
+                                    <Image.Source>
+                                        <SvgImage Source="/Assets/Commands/server_add.svg"/>
+                                    </Image.Source>
+                                </Image>
+                            </Button>
+                        </StackPanel>
+                        <TreeView Grid.Row="1"></TreeView>
+                        <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Stretch">
+                            <CheckBox x:Name="CbIsAutoRefresh" IsChecked="{Binding IsAutoRefresh}" VerticalAlignment="Center"/>
+                            <TextBlock Text="{x:Static l:Strings.AutoRefresh}" VerticalAlignment="Center"/>
+                            <NumericUpDown Value="{Binding AutoRefreshFrequency}" 
+                                           IsEnabled="{Binding #CbIsAutoRefresh.IsChecked}"
+                                           Margin="10 0" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+            <GridSplitter VerticalAlignment="Stretch" Grid.Column="0" HorizontalAlignment="Right" />
+            <Grid Grid.Column="1">
+                <TabControl>
+                    <TabItem Header="{x:Static l:Strings.Dashboard}"></TabItem>
+                </TabControl>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
